@@ -1,0 +1,55 @@
+// ./gradlew clean build generateRelease
+apply plugin: 'maven'
+
+def groupId = project.groupId
+def artifactId = project.artifactId
+def versionNo = project.versionNo
+
+def localReleaseDest = "${buildDir}/release/${versionNo}"
+
+task androidJavadocs(type: Javadoc) {
+    failOnError = false
+    source = android.sourceSets.main.java.srcDirs
+    ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+    classpath += files(ext.androidJar)
+}
+
+task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    classifier = 'javadoc'
+    from androidJavadocs.destinationDir
+}
+
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        pom.groupId = groupId
+        pom.artifactId = artifactId
+        pom.version = versionNo
+        // Add other pom properties here if you want (developer details / licenses)
+        repository(url: "file://${localReleaseDest}")
+    }
+}
+
+task zipRelease(type: Zip) {
+    from localReleaseDest
+    destinationDir buildDir
+    archiveName "${artifactId}-${versionNo}.zip"
+}
+
+task generateRelease << {
+    println "Release ${versionNo} can be found at ${localReleaseDest}/"
+    println "Release ${versionNo} zipped can be found ${buildDir}/${artifactId}-${versionNo}.zip"
+}
+
+generateRelease.dependsOn(uploadArchives)
+generateRelease.dependsOn(zipRelease)
+
+
+artifacts {
+    archives androidSourcesJar
+    archives androidJavadocsJar
+}

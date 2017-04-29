@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StackView">
+        <attr name="stackSize" format="integer"/>
+        <attr name="animationDuration" format="integer"/>
+    </declare-styleable>
+</resources>
