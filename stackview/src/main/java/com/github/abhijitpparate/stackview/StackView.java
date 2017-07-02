@@ -44,7 +44,7 @@ public class StackView extends FrameLayout {
      */
     public StackView(@NonNull Context context) {
         super(context);
-        init();
+        if (!isInEditMode()) init();
     }
 
     /**
@@ -58,12 +58,12 @@ public class StackView extends FrameLayout {
         try {
             stackSize = ta.getInteger(R.styleable.StackView_stackSize, 3);
             animationDuration = ta.getInteger(R.styleable.StackView_animationDuration, 300);
-            Log.e(this.getClass().getSimpleName(), stackSize+"");
-            Log.e(this.getClass().getSimpleName(), animationDuration+"");
+            Log.d(this.getClass().getSimpleName(), stackSize+"");
+            Log.d(this.getClass().getSimpleName(), animationDuration+"");
         } finally {
             ta.recycle();
         }
-        init();
+        if (!isInEditMode()) init();
     }
 
     public StackView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
@@ -72,12 +72,12 @@ public class StackView extends FrameLayout {
         try {
             stackSize = ta.getInteger(R.styleable.StackView_stackSize, 3);
             animationDuration = ta.getInteger(R.styleable.StackView_animationDuration, 300);
-            Log.e(this.getClass().getSimpleName(), stackSize+"");
-            Log.e(this.getClass().getSimpleName(), animationDuration+"");
+            Log.d(this.getClass().getSimpleName(), stackSize+"");
+            Log.d(this.getClass().getSimpleName(), animationDuration+"");
         } finally {
             ta.recycle();
         }
-        init();
+        if (!isInEditMode()) init();
     }
 
     public StackView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
@@ -86,12 +86,12 @@ public class StackView extends FrameLayout {
         try {
             stackSize = ta.getInteger(R.styleable.StackView_stackSize, 3);
             animationDuration = ta.getInteger(R.styleable.StackView_animationDuration, 300);
-            Log.e(this.getClass().getSimpleName(), stackSize+"");
-            Log.e(this.getClass().getSimpleName(), animationDuration+"");
+            Log.d(this.getClass().getSimpleName(), stackSize+"");
+            Log.d(this.getClass().getSimpleName(), animationDuration+"");
         } finally {
             ta.recycle();
         }
-        init();
+        if (!isInEditMode()) init();
     }
 
     /**
@@ -162,13 +162,11 @@ public class StackView extends FrameLayout {
 
     private void setEventBus(){
         Subscription rxBus
-                = EventBus.getEventBus().asObservable().observeOn(AndroidSchedulers.mainThread()) // UI Thread
+                = EventBus.getEventBus().asObservable().observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<CardSwipedEvent>() {
-
                     @Override
                     public void call(CardSwipedEvent event) {
-                        if (event == null) return;
-
+                        Log.d("StackView", "call: " + String.valueOf(event.swipe));
                         if (listener !=  null) {
                             if (event.swipe == Swipe.LEFT) {
                                 listener.onCardExitLeft(index - getChildCount());

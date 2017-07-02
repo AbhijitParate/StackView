@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/StackView.iml" filepath="$PROJECT_DIR$/StackView.iml" />
       <module fileurl="file://$PROJECT_DIR$/StackView2.iml" filepath="$PROJECT_DIR$/StackView2.iml" />
       <module fileurl="file://$PROJECT_DIR$/example/example.iml" filepath="$PROJECT_DIR$/example/example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/example/example.iml" filepath="$PROJECT_DIR$/example/example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/stackview/stackview.iml" filepath="$PROJECT_DIR$/stackview/stackview.iml" />
       <module fileurl="file://$PROJECT_DIR$/stackview/stackview.iml" filepath="$PROJECT_DIR$/stackview/stackview.iml" />
     </modules>
   </component>

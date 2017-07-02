@@ -47,7 +47,7 @@ public class Card1 extends SwipeView {
 
     @Override
     public void onViewDismissed(StackView.Swipe swipe) {
-        Log.e(this.getClass().getSimpleName(), "onViewDismissed");
+        Log.d(this.getClass().getSimpleName(), "onViewDismissed");
     }
 
     @Override

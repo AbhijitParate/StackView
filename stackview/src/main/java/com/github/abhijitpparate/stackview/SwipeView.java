@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -192,6 +193,7 @@ public abstract class SwipeView extends FrameLayout implements View.OnTouchListe
                     view.clearAnimation();
                     return true;
                 case MotionEvent.ACTION_UP:
+                    Log.d("ACTION_UP", "onTouch: ");
                     if(isCardBeyondLeftBoundary(view)){
                         EventBus.getEventBus().onNext(new StackView.CardSwipedEvent(StackView.Swipe.LEFT));
                         OnStartViewExitEvent(StackView.Swipe.LEFT);
